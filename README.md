@@ -14,6 +14,7 @@ A consultancy web application that helps entrepreneurs start poultry businesses,
 | Profit Calculator | `/calculator` | Broiler & layer models: profit, margin, ROI, cost per unit, break-even price, cost breakdown; multi-currency |
 | Training | `/training` | Course catalogue filterable by level, with enrolment form |
 | Jobs | `/careers` | Jobs board filterable by experience (incl. *No experience*), type and training; apply form; employers can post jobs (`/careers?post=1`) |
+| News | `/news`, `/news/<id>` | Articles and farming tips in English and French, written and published from the admin page |
 | Contact | `/contact` | Consultation booking form (pre-selects a service via `?service=<id>`) |
 
 ## Languages (English / French)
@@ -27,7 +28,7 @@ Visitors switch language with the **EN | FR** toggle in the navigation bar. On a
 
 ## Hero photos
 
-Each page's hero photo fills the whole hero behind the text. The files live in `public/images/hero/` as `<page>-1600.webp`, `<page>-1200.webp`, `<page>-720.webp` and `<page>-1200.jpg` (pages: home, services, start, calculator, training, jobs, contact, notfound). The current photos are from Wikimedia Commons under **CC BY-SA** licences, which require crediting the photographer. That's why each photo has a small caption and the footer links to a **Photo credits** page (`/credits`). Credit details are in `src/data/photo-credits.json`.
+Each page's hero photo fills the whole hero behind the text. The files live in `public/images/hero/` as `<page>-1600.webp`, `<page>-1200.webp`, `<page>-720.webp` and `<page>-1200.jpg` (pages: home, services, start, calculator, training, jobs, contact, news, notfound). The current photos are from Wikimedia Commons under **CC BY-SA** licences, which require crediting the photographer. That's why each photo has a small caption and the footer links to a **Photo credits** page (`/credits`). Credit details are in `src/data/photo-credits.json`.
 
 To use your own photos, replace the four files for a page (keep the names). The text sits on the left, so the subject should be on the right; `FRAMING` in `src/components/HeroPhoto.tsx` can mirror a photo or move its focal point. If they're your own pictures, remove that page's entry from `photo-credits.json` to drop its caption. Photo descriptions for screen readers are in `src/i18n/messages.ts` under `photos.alt`.
 
@@ -65,6 +66,7 @@ Every form (consultations, job applications, course registrations, employer job 
 
 - **Email alerts** — set `NOTIFY_EMAIL` and the `SMTP_*` variables with `npx convex env set` (see `.env.example`). Each new submission is emailed to you, with reply-to set to the sender. For Gmail use `smtp.gmail.com`, port 587 and an [App Password](https://myaccount.google.com/apppasswords). Without SMTP, submissions are saved and the email is only logged in the Convex dashboard.
 - **Admin inbox** — open `/admin` and sign in with `ADMIN_PASSWORD`. Updates live as submissions arrive. Tabs per form type, mark handled, delete spam.
+- **News** — the admin page's **News** tab is where you write, edit, publish, unpublish and delete articles. English is required; French is optional (French visitors see the English article, with a note, until you add it). Text is plain: leave a blank line between paragraphs. To add the three starter articles (general farming tips) to an empty site, run `npx convex run news:seedSamples` (add `--prod` for production); it does nothing if any article already exists.
 - **Job posts are moderated** — they arrive as *pending* and appear on the public jobs board only after **Approve & publish**. Employer contact details are never public.
 - **Spam protection** — hidden honeypot field, a cap of 100 submissions per form per 10 minutes, and a 15-minute lockout after 10 wrong admin passwords.
 

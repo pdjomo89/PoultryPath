@@ -12,6 +12,7 @@ import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import Admin from './pages/Admin';
 import Credits from './pages/Credits';
+import News, { NewsArticle } from './pages/News';
 
 /**
  * Every click to a new page starts at the top, instantly — before the new page
@@ -40,6 +41,8 @@ export default function App() {
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/training" element={<Training />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news/:id" element={<NewsArticle />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/credits" element={<Credits />} />
           <Route path="/admin" element={<Admin />} />

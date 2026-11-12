@@ -7,16 +7,19 @@ export default function PageHero({
   title,
   lead,
   photo,
+  wide = false,
   children,
 }: {
   eyebrow: string;
   title: ReactNode;
   lead?: ReactNode;
   photo: PhotoKey;
+  /** Let the text run edge to edge across the screen instead of the centred page column. */
+  wide?: boolean;
   children?: ReactNode;
 }) {
   return (
-    <section className="page-hero hero-bg">
+    <section className={`page-hero hero-bg${wide ? ' hero-bg--wide' : ''}`}>
       <HeroPhoto photo={photo} />
       <div className="container">
         <div className="hero-bg__text">

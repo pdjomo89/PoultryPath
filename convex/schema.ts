@@ -25,6 +25,23 @@ export default defineSchema({
     .index('by_type_status', ['type', 'status', 'submittedAt'])
     .index('by_legacyId', ['legacyId']),
 
+  /**
+   * News articles written in the admin page. French fields may be left empty;
+   * the site then shows the English text to French visitors.
+   */
+  news: defineTable({
+    titleEn: v.string(),
+    titleFr: v.string(),
+    summaryEn: v.string(),
+    summaryFr: v.string(),
+    bodyEn: v.string(),
+    bodyFr: v.string(),
+    status: v.union(v.literal('draft'), v.literal('published')),
+    /** Set the first time an article is published; shown as its date. */
+    publishedAt: v.optional(v.number()),
+    updatedAt: v.number(),
+  }).index('by_status_publishedAt', ['status', 'publishedAt']),
+
   /** Signed-in admin sessions. Only a hash of the token is stored. */
   adminSessions: defineTable({
     tokenHash: v.string(),

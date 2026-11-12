@@ -30,6 +30,7 @@ export default function Footer() {
               <li><Link to="/start-a-farm">{f.roadmap}</Link></li>
               <li><Link to="/calculator">{f.calculator}</Link></li>
               <li><Link to="/careers">{f.jobsBoard}</Link></li>
+              <li><Link to="/news">{f.news}</Link></li>
               <li><Link to="/contact">{f.book}</Link></li>
             </ul>
           </div>

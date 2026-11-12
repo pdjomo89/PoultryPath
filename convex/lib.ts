@@ -33,6 +33,7 @@ export const MESSAGES = {
     labels: {
       name: 'Name', phone: 'Phone', service: 'Service', jobId: 'Job', jobTitle: 'Job title', courseId: 'Course',
       courseTitle: 'Course title', title: 'Job title', farm: 'Farm', location: 'Location', description: 'Description', contact: 'Contact',
+      titleEn: 'English title', bodyEn: 'English article',
     } as Record<string, string>,
   },
   fr: {
@@ -47,6 +48,7 @@ export const MESSAGES = {
     labels: {
       name: 'Nom', phone: 'Téléphone', service: 'Service', jobId: 'Offre', jobTitle: 'Intitulé du poste', courseId: 'Formation',
       courseTitle: 'Intitulé de la formation', title: 'Intitulé du poste', farm: 'Ferme', location: 'Localisation', description: 'Description', contact: 'Contact',
+      titleEn: 'Titre en anglais', bodyEn: 'Article en anglais',
     } as Record<string, string>,
   },
 };

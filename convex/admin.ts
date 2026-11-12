@@ -17,14 +17,14 @@ function randomToken() {
   return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-async function sessionValid(ctx: QueryCtx, token: string) {
+export async function sessionValid(ctx: QueryCtx, token: string) {
   if (!token) return false;
   const tokenHash = await sha256Hex(token);
   const row = await ctx.db.query('adminSessions').withIndex('by_tokenHash', (q) => q.eq('tokenHash', tokenHash)).unique();
   return !!row && row.expiresAt > Date.now();
 }
 
-async function requireAdmin(ctx: QueryCtx | MutationCtx, token: string) {
+export async function requireAdmin(ctx: QueryCtx | MutationCtx, token: string) {
   if (!(await sessionValid(ctx, token))) {
     throw new ConvexError({ code: 'UNAUTHORIZED', message: 'Your session has expired — please sign in again.' });
   }

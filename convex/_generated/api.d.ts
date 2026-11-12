@@ -15,6 +15,7 @@ import type * as forms from "../forms.js";
 import type * as jobs from "../jobs.js";
 import type * as lib from "../lib.js";
 import type * as migrations from "../migrations.js";
+import type * as news from "../news.js";
 import type * as notify from "../notify.js";
 
 import type {
@@ -31,6 +32,7 @@ declare const fullApi: ApiFromModules<{
   jobs: typeof jobs;
   lib: typeof lib;
   migrations: typeof migrations;
+  news: typeof news;
   notify: typeof notify;
 }>;
 

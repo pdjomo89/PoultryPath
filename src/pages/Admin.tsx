@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from 'convex/react';
-import { Check, Inbox, LogOut, RotateCcw, Trash2, X } from 'lucide-react';
+import { Check, Inbox, LogOut, Newspaper, RotateCcw, Trash2, X } from 'lucide-react';
 import { api } from '../../convex/_generated/api';
 import type { Id } from '../../convex/_generated/dataModel';
 import { errorMessage, isUnauthorized } from '../lib/forms';
 import { FormError } from '../components/FormBits';
+import AdminNews from './AdminNews';
 
 type SubmissionType = 'consultation' | 'application' | 'enrolment' | 'job';
 
@@ -107,7 +108,7 @@ function SubmissionCard({ s, onStatus, onDelete, busy }: {
 export default function Admin() {
   const [token, setToken] = useState(readToken);
   const [password, setPassword] = useState('');
-  const [tab, setTab] = useState<SubmissionType>('consultation');
+  const [tab, setTab] = useState<SubmissionType | 'news'>('consultation');
   const [showClosed, setShowClosed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [signingIn, setSigningIn] = useState(false);
@@ -172,11 +173,11 @@ export default function Admin() {
     try { await fn(); } catch (err) { handleError(err); } finally { setBusyId(null); }
   };
 
-  const current = TABS.find((t) => t.type === tab)!;
+  const current = TABS.find((t) => t.type === tab);
   const openCounts = useMemo(() => Object.fromEntries(
     TABS.map((t) => [t.type, items?.filter((s) => s.type === t.type && s.status === t.open).length ?? 0]),
   ), [items]);
-  const visible = (items ?? []).filter((s) => s.type === tab && (showClosed || s.status === current.open));
+  const visible = (items ?? []).filter((s) => s.type === tab && (showClosed || s.status === current?.open));
 
   if (!token || !items) {
     const loading = !!token && items === undefined;
@@ -221,16 +222,23 @@ export default function Admin() {
                 {t.label}{openCounts[t.type] ? <span className="count">{openCounts[t.type]}</span> : null}
               </button>
             ))}
+            <button role="tab" aria-selected={tab === 'news'} className={tab === 'news' ? 'active' : ''} onClick={() => setTab('news')}>
+              <Newspaper size={15} style={{ verticalAlign: '-2px', marginRight: 6 }} />News
+            </button>
           </div>
-          <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontWeight: 500 }}>
-            <input type="checkbox" checked={showClosed} onChange={(e) => setShowClosed(e.target.checked)} style={{ accentColor: 'var(--forest)' }} />
-            Show {tab === 'job' ? 'approved & rejected' : 'handled'}
-          </label>
+          {current && (
+            <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontWeight: 500 }}>
+              <input type="checkbox" checked={showClosed} onChange={(e) => setShowClosed(e.target.checked)} style={{ accentColor: 'var(--forest)' }} />
+              Show {tab === 'job' ? 'approved & rejected' : 'handled'}
+            </label>
+          )}
         </div>
 
         <FormError message={error} />
 
-        {visible.length === 0 ? (
+        {!current ? (
+          <AdminNews token={token} onUnauthorized={signOut} />
+        ) : visible.length === 0 ? (
           <div className="card empty">
             <Inbox size={40} style={{ margin: '0 auto 12px', color: 'var(--gold-dark)' }} />
             {showClosed ? 'Nothing here yet.' : `No ${current.open} ${current.label.toLowerCase()} — you’re all caught up.`}

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import credits from '../data/photo-credits.json';
 import { useI18n } from '../i18n';
 
-export type PhotoKey = 'home' | 'services' | 'start' | 'calculator' | 'training' | 'jobs' | 'contact' | 'notfound';
+export type PhotoKey = 'home' | 'services' | 'start' | 'calculator' | 'training' | 'jobs' | 'contact' | 'news' | 'notfound';
 
 export const PHOTO_CREDITS = credits as {
   key: PhotoKey;
@@ -26,6 +26,7 @@ const FRAMING: Record<PhotoKey, { mirror?: boolean; y?: string }> = {
   training: { y: '30%' },
   jobs: { y: '40%' },
   contact: { mirror: true, y: '22%' },
+  news: { mirror: true, y: '8%' },
   notfound: { y: '60%' },
 };
 

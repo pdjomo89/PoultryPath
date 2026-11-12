@@ -32,7 +32,9 @@ beforeEach(() => {
   vi.stubEnv('ADMIN_PASSWORD', PASSWORD);
   t = convexTest(schema, modules);
 });
-afterEach(() => {
+afterEach(async () => {
+  // Let email actions already started by this test finish, so they can't write during the next one.
+  await t.finishInProgressScheduledFunctions();
   vi.unstubAllEnvs();
   vi.useRealTimers();
 });
@@ -193,5 +195,50 @@ describe('languages', () => {
     await t.mutation(api.forms.submitConsultation, consultation);
     const languages = (await all()).map((s) => s.data.language).sort();
     expect(languages).toEqual(['English', 'French']);
+  });
+});
+
+describe('news', () => {
+  const article = { titleEn: 'Hello', summaryEn: '', bodyEn: 'First paragraph.\n\nSecond.', titleFr: '', summaryFr: '', bodyFr: '' };
+
+  it('shows only published articles to visitors', async () => {
+    const token = await signIn();
+    const id = await t.mutation(api.news.save, { token, publish: false, ...article });
+    expect(await t.query(api.news.listPublished, {})).toEqual([]);
+    expect(await t.query(api.news.get, { id })).toBeNull();
+
+    await t.mutation(api.news.setPublished, { token, id, published: true });
+    const [listed] = await t.query(api.news.listPublished, {});
+    expect(listed).toMatchObject({ id, titleEn: 'Hello', summaryEn: 'First paragraph.' });
+    expect(await t.query(api.news.get, { id })).toMatchObject({ bodyEn: 'First paragraph.\n\nSecond.' });
+
+    // Unpublishing hides it again but keeps the original publication date.
+    const firstDate = listed.publishedAt;
+    await t.mutation(api.news.setPublished, { token, id, published: false });
+    expect(await t.query(api.news.get, { id })).toBeNull();
+    vi.setSystemTime(Date.now() + 60_000);
+    await t.mutation(api.news.setPublished, { token, id, published: true });
+    expect((await t.query(api.news.listPublished, {}))[0].publishedAt).toBe(firstDate);
+  });
+
+  it('returns null for malformed article ids', async () => {
+    expect(await t.query(api.news.get, { id: 'not-an-id' })).toBeNull();
+  });
+
+  it('requires an admin session and an English title and article', async () => {
+    const err = await errorData(t.mutation(api.news.save, { token: 'bogus', publish: true, ...article }));
+    expect(err.message).toMatch(/sign in/);
+
+    const token = await signIn();
+    const invalid = await errorData(t.mutation(api.news.save, { token, publish: true, ...article, titleEn: ' ', bodyEn: '', titleFr: 'Bonjour' }));
+    expect(Object.keys(invalid.fields ?? {}).sort()).toEqual(['bodyEn', 'bodyFr', 'titleEn']);
+  });
+
+  it('seeds the sample articles only once', async () => {
+    expect(await t.mutation(internal.news.seedSamples, {})).toEqual({ added: 3 });
+    expect(await t.mutation(internal.news.seedSamples, {})).toEqual({ added: 0 });
+    const list = await t.query(api.news.listPublished, {});
+    expect(list).toHaveLength(3);
+    expect(list[0].titleEn).toMatch(/Biosecurity/);
   });
 });

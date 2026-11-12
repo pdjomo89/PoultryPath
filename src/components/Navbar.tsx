@@ -50,6 +50,7 @@ export default function Navbar() {
     { to: '/calculator', label: t.nav.calculator },
     { to: '/training', label: t.nav.training },
     { to: '/careers', label: t.nav.jobs },
+    { to: '/news', label: t.nav.news },
   ];
 
   return (
