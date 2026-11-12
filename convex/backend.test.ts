@@ -233,12 +233,4 @@ describe('news', () => {
     const invalid = await errorData(t.mutation(api.news.save, { token, publish: true, ...article, titleEn: ' ', bodyEn: '', titleFr: 'Bonjour' }));
     expect(Object.keys(invalid.fields ?? {}).sort()).toEqual(['bodyEn', 'bodyFr', 'titleEn']);
   });
-
-  it('seeds the sample articles only once', async () => {
-    expect(await t.mutation(internal.news.seedSamples, {})).toEqual({ added: 3 });
-    expect(await t.mutation(internal.news.seedSamples, {})).toEqual({ added: 0 });
-    const list = await t.query(api.news.listPublished, {});
-    expect(list).toHaveLength(3);
-    expect(list[0].titleEn).toMatch(/Biosecurity/);
-  });
 });

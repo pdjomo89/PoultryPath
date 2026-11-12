@@ -5,6 +5,7 @@ import { api } from '../../convex/_generated/api';
 import type { NewsSummary } from '../../convex/news';
 import { useI18n, type Lang } from '../i18n';
 import PageHero from '../components/PageHero';
+import { fileArticles } from '../data/newsFiles';
 
 /**
  * Text of an article in the visitor's language. Articles without a French
@@ -47,7 +48,13 @@ function Header({ title, lead, eyebrow }: { title: string; lead?: string; eyebro
 export default function News() {
   const { t, lang } = useI18n();
   const n = t.news;
-  const articles = useQuery(api.news.listPublished);
+  const fromAdmin = useQuery(api.news.listPublished);
+  // Articles from content/news/ are in the bundle, so they show straight away;
+  // admin-written ones join them once the database answers.
+  const articles =
+    fromAdmin === undefined && fileArticles.length === 0
+      ? undefined
+      : [...fileArticles, ...(fromAdmin ?? [])].sort((a, b) => b.publishedAt - a.publishedAt);
 
   return (
     <>
@@ -89,7 +96,9 @@ export function NewsArticle() {
   const { id = '' } = useParams();
   const { t, lang } = useI18n();
   const n = t.news;
-  const article = useQuery(api.news.get, { id });
+  const fromFile = fileArticles.find((a) => a.id === id);
+  const fromAdmin = useQuery(api.news.get, fromFile ? 'skip' : { id });
+  const article = fromFile ?? fromAdmin;
 
   const back = (
     <Link to="/news" className="news-back"><ArrowLeft size={16} aria-hidden="true" /> {n.back}</Link>
