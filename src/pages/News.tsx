@@ -1,11 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'convex/react';
-import { ArrowLeft, ArrowRight, CalendarDays } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, Quote } from 'lucide-react';
 import { api } from '../../convex/_generated/api';
 import type { NewsSummary } from '../../convex/news';
 import { useI18n, type Lang } from '../i18n';
 import PageHero from '../components/PageHero';
 import { fileArticles } from '../data/newsFiles';
+import { testimonials } from '../data/testimonialFiles';
 
 /**
  * Text of an article in the visitor's language. Articles without a French
@@ -88,7 +89,45 @@ export default function News() {
           )}
         </div>
       </section>
+      <Testimonials />
     </>
+  );
+}
+
+/** "What farmers say" — hidden until content/testimonials/ has at least one. */
+function Testimonials() {
+  const { t, lang } = useI18n();
+  const n = t.news;
+  if (testimonials.length === 0) return null;
+
+  return (
+    <section className="section section--cream" aria-labelledby="testimonials-title">
+      <div className="container">
+        <div className="section-head section-head--center">
+          <span className="eyebrow">{n.testimonialsEyebrow}</span>
+          <h2 id="testimonials-title">{n.testimonialsTitle}</h2>
+          <p className="lead">{n.testimonialsLead}</p>
+        </div>
+        <div className="grid grid--3">
+          {testimonials.map((item) => {
+            const fr = lang === 'fr' && !!item.quoteFr;
+            const role = lang === 'fr' && item.roleFr ? item.roleFr : item.roleEn;
+            return (
+              <figure className="card testimonial" key={item.id}>
+                <Quote className="testimonial__mark" size={28} aria-hidden="true" />
+                <blockquote className="testimonial__quote" lang={lang === 'fr' && !fr ? 'en' : undefined}>
+                  {paragraphs(fr ? item.quoteFr : item.quoteEn).map((p, i) => <p key={i}>{p}</p>)}
+                </blockquote>
+                <figcaption className="testimonial__by card__foot">
+                  <strong>{item.name}</strong>
+                  {role && <span>{role}</span>}
+                </figcaption>
+              </figure>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
 

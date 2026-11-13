@@ -382,6 +382,9 @@ const en = {
     notFoundTitle: 'Article not found',
     notFoundLead: 'This article doesn’t exist or is no longer published.',
     englishOnly: 'This article is only available in English.',
+    testimonialsEyebrow: 'Testimonials',
+    testimonialsTitle: 'What farmers say',
+    testimonialsLead: 'Farmers who have worked with PoultryPath share their experience.',
   },
   notFound: {
     title: 'This page wandered off the farm',
@@ -763,6 +766,9 @@ const fr: Messages = {
     notFoundTitle: 'Article introuvable',
     notFoundLead: 'Cet article n’existe pas ou n’est plus publié.',
     englishOnly: 'Cet article n’est disponible qu’en anglais.',
+    testimonialsEyebrow: 'Témoignages',
+    testimonialsTitle: 'Ce que disent les éleveurs',
+    testimonialsLead: 'Des éleveurs qui ont travaillé avec PoultryPath partagent leur expérience.',
   },
   notFound: {
     title: 'Cette page s’est échappée de la ferme',
