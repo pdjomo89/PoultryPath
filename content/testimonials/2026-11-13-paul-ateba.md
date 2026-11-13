@@ -1,7 +1,7 @@
 ---
-name: La Ferme du Bonheur
-role: Bafoussam
-roleFr: Bafoussam
+name: Paul Ateba
+role: La Ferme du Bonheur, Bafoussam
+roleFr: La Ferme du Bonheur, Bafoussam
 ---
 
 PoultryPath provided comprehensive, end-to-end consulting, guiding me from the initial idea of starting a poultry farm through business planning and project execution. Their expertise, practical guidance, and support turned my vision into a clear and actionable plan. I highly recommend PoultryPath!
