@@ -176,7 +176,7 @@ export default function Contact() {
             <h4 style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>{c.direct}</h4>
             <ul className="footer__list" style={{ color: 'var(--ink)' }}>
               <li style={{ display: 'flex', gap: 8, alignItems: 'center' }}><Phone size={16} color="var(--gold-dark)" /> +000 000 000 000</li>
-              <li style={{ display: 'flex', gap: 8, alignItems: 'center' }}><Mail size={16} color="var(--gold-dark)" /> hello@poultrypath.example</li>
+              <li style={{ display: 'flex', gap: 8, alignItems: 'center' }}><Mail size={16} color="var(--gold-dark)" /> <a href="mailto:poultrypathconsult@gmail.com">poultrypathconsult@gmail.com</a></li>
             </ul>
           </aside>
         </div>

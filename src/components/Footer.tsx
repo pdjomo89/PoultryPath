@@ -39,7 +39,7 @@ export default function Footer() {
             {/* Placeholder details — replace with real ones before launch. */}
             <ul className="footer__list footer__contact">
               <li><Phone size={16} /> +000 000 000 000</li>
-              <li><Mail size={16} /> hello@poultrypath.example</li>
+              <li><Mail size={16} /> <a href="mailto:poultrypathconsult@gmail.com">poultrypathconsult@gmail.com</a></li>
               <li><MapPin size={16} /> {f.address}</li>
             </ul>
             <h4 className="footer__follow">{f.follow}</h4>
