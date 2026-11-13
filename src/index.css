@@ -5,6 +5,7 @@
   --forest-soft: #e6efe7;
   --cream: #fbf5e6;         /* Warm Cream: hero */
   --cream-deep: #f3e9cf;
+  --cream-page: #fdf9ef;    /* Soft cream: page background behind every page */
   --gold: #e8b923;          /* Golden Yellow: CTAs, icons, highlights */
   --gold-dark: #c99a0e;
   --gold-soft: #fdf3d3;
@@ -12,6 +13,7 @@
   --ink: #1d2a21;
   --muted: #5b6b60;
   --line: #e4e0d3;
+  --card-border: 1px solid var(--forest); /* Thin Deep Forest Green edge on every card */
   --danger: #b3261e;
   --success: #2e7d32;
 
@@ -36,9 +38,14 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--white);
+  background: var(--cream-page);
   -webkit-font-smoothing: antialiased;
 }
+
+/* Green frame around every page: these side borders join the green navbar
+   above and the green footer below. */
+main { border-inline: 4px solid var(--forest); }
+@media (max-width: 600px) { main { border-inline-width: 2px; } }
 
 img { max-width: 100%; display: block; }
 a { color: var(--forest); }
@@ -220,11 +227,11 @@ p { margin: 0 0 1em; }
 .hero-bg__credit:hover { background: rgba(19, 52, 32, 0.9); color: var(--white); }
 
 /* Home: the "everything you need" checklist as a full-width band under the hero. */
-.hero-features { background: var(--white); padding-block: 56px 8px; }
+.hero-features { background: var(--cream-page); padding-block: 56px 8px; }
 .hero-features__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
 .hero-features__head h2 { margin: 0; font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
 .hero-features__list { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px 32px; }
-.hero-features__list li { background: #faf8f2; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.hero-features__list li { background: #faf8f2; border: var(--card-border); border-radius: 12px; padding: 14px 16px; }
 
 @media (max-width: 900px) {
   /* Narrow screens: the text spans the whole width, so veil the whole photo evenly. */
@@ -241,7 +248,7 @@ p { margin: 0 0 1em; }
 
 .card {
   background: var(--white);
-  border: 1px solid var(--line);
+  border: var(--card-border);
   border-radius: var(--radius);
   padding: 28px;
   box-shadow: var(--shadow);
@@ -273,7 +280,7 @@ p { margin: 0 0 1em; }
 
 /* ===== Steps ===== */
 .steps { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); counter-reset: step; }
-.step { position: relative; padding: 28px 24px 24px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--line); }
+.step { position: relative; padding: 28px 24px 24px; background: var(--white); border-radius: var(--radius); border: var(--card-border); }
 .step__num {
   width: 40px; height: 40px; border-radius: 50%;
   background: var(--forest); color: var(--gold);
@@ -289,7 +296,7 @@ p { margin: 0 0 1em; }
   background: var(--forest); color: var(--gold);
   display: grid; place-items: center; font-weight: 700; font-size: 1.1rem;
 }
-.timeline__body { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }
+.timeline__body { background: var(--white); border: var(--card-border); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }
 .timeline__body h3 { margin-bottom: 6px; }
 .timeline__meta { font-size: 0.85rem; color: var(--gold-dark); font-weight: 600; margin-bottom: 10px; }
 .timeline__check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; padding: 4px 0; }
