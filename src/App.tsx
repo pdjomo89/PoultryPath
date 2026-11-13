@@ -13,6 +13,7 @@ import NotFound from './pages/NotFound';
 import Admin from './pages/Admin';
 import Credits from './pages/Credits';
 import News, { NewsArticle } from './pages/News';
+import { WhatsAppButton } from './components/WhatsApp';
 
 /**
  * Every click to a new page starts at the top, instantly — before the new page
@@ -50,6 +51,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }

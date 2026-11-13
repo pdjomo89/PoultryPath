@@ -8,6 +8,8 @@ import { errorMessage, fieldErrors, readHoneypot, type FieldErrors } from '../li
 import { FormError, Honeypot } from '../components/FormBits';
 import { useI18n } from '../i18n';
 import PageHero from '../components/PageHero';
+import { WhatsAppIcon } from '../components/WhatsApp';
+import { PHONE, whatsappUrl } from '../data/site';
 import type { Messages } from '../i18n/messages';
 
 /*
@@ -175,7 +177,8 @@ export default function Contact() {
             </ul>
             <h4 style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>{c.direct}</h4>
             <ul className="footer__list" style={{ color: 'var(--ink)' }}>
-              <li style={{ display: 'flex', gap: 8, alignItems: 'center' }}><Phone size={16} color="var(--gold-dark)" /> +000 000 000 000</li>
+              <li style={{ display: 'flex', gap: 8, alignItems: 'center' }}><Phone size={16} color="var(--gold-dark)" /> <a href={PHONE.tel}>{PHONE.display}</a></li>
+              <li style={{ display: 'flex', gap: 8, alignItems: 'center' }}><WhatsAppIcon size={16} color="var(--gold-dark)" /> <a href={whatsappUrl(t.whatsapp.greeting)} target="_blank" rel="noopener noreferrer">{t.whatsapp.chat}</a></li>
               <li style={{ display: 'flex', gap: 8, alignItems: 'center' }}><Mail size={16} color="var(--gold-dark)" /> <a href="mailto:poultrypathconsult@gmail.com">poultrypathconsult@gmail.com</a></li>
             </ul>
           </aside>

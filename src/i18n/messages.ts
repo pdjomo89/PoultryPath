@@ -52,6 +52,11 @@ const en = {
     rights: (year: number) => `© ${year} PoultryPath. All rights reserved.`,
     photoCredits: 'Photo credits',
   },
+  whatsapp: {
+    chat: 'Chat on WhatsApp',
+    chatLabel: 'Chat with PoultryPath on WhatsApp (opens WhatsApp)',
+    greeting: 'Hello PoultryPath, I would like some information about your services.',
+  },
   cta: {
     title: 'Ready to start your livestock journey?',
     text: 'Book a free 30-minute discovery call. We’ll look at your goals, budget and location, and map out your next steps.',
@@ -436,6 +441,11 @@ const fr: Messages = {
     followOn: (network: string) => `PoultryPath sur ${network} (s’ouvre dans un nouvel onglet)`,
     rights: (year: number) => `© ${year} PoultryPath. Tous droits réservés.`,
     photoCredits: 'Crédits photo',
+  },
+  whatsapp: {
+    chat: 'Discuter sur WhatsApp',
+    chatLabel: 'Discuter avec PoultryPath sur WhatsApp (ouvre WhatsApp)',
+    greeting: 'Bonjour PoultryPath, je souhaiterais avoir des informations sur vos services.',
   },
   cta: {
     title: 'Prêt à vous lancer dans l’élevage ?',

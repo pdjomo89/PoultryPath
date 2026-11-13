@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { Brand } from './Navbar';
 import SocialIcons from './SocialIcons';
+import { WhatsAppIcon } from './WhatsApp';
+import { PHONE, whatsappUrl } from '../data/site';
 import { useI18n } from '../i18n';
 
 export default function Footer() {
@@ -36,9 +38,9 @@ export default function Footer() {
           </div>
           <div>
             <h4>{f.contact}</h4>
-            {/* Placeholder details — replace with real ones before launch. */}
             <ul className="footer__list footer__contact">
-              <li><Phone size={16} /> +000 000 000 000</li>
+              <li><Phone size={16} /> <a href={PHONE.tel}>{PHONE.display}</a></li>
+              <li><WhatsAppIcon size={16} /> <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">{t.whatsapp.chat}</a></li>
               <li><Mail size={16} /> <a href="mailto:poultrypathconsult@gmail.com">poultrypathconsult@gmail.com</a></li>
               <li><MapPin size={16} /> {f.address}</li>
             </ul>

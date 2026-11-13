@@ -453,6 +453,18 @@ p { margin: 0 0 1em; }
 .footer a.social__link:hover, .social__link:focus-visible { background: var(--gold); color: var(--forest-dark); transform: translateY(-2px); }
 .social__link:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
+/* Floating WhatsApp chat button */
+.whatsapp-fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 50;
+  display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%;
+  background: #25d366; color: #ffffff; box-shadow: var(--shadow-lg);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.whatsapp-fab:hover { background: #1ebe5b; transform: translateY(-2px); }
+.whatsapp-fab:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+@media (max-width: 480px) { .whatsapp-fab { right: 16px; bottom: 16px; width: 52px; height: 52px; } }
+@media print { .whatsapp-fab { display: none; } }
+
 /* ===== News ===== */
 .news-date { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--gold-dark); margin-bottom: 10px; }
 .news-card__title { font-size: 1.3rem; }
